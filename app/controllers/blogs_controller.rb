@@ -50,6 +50,6 @@ class BlogsController < ApplicationController
   end
 
   def correct_user
-    @blog = current_user.blogs.find_by!(id: params[:id])
+    @blog = current_user.blogs.find(params[:id])
   end
 end

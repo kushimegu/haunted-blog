@@ -3,7 +3,7 @@
 class BlogsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
-  before_action :correct_user, only: %i[edit update destroy]
+  before_action :permit_editing, only: %i[edit update destroy]
 
   def index
     @blogs = Blog.search(params[:term]).published.default_order
@@ -55,7 +55,7 @@ class BlogsController < ApplicationController
     params.require(:blog).permit(attributes)
   end
 
-  def correct_user
+  def permit_editing
     @blog = current_user.blogs.find(params[:id])
   end
 end
